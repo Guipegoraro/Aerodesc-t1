@@ -98,9 +98,9 @@ int listar_passageiros(char passageiros[MAX_PASSAGEIROS][TAM_STRING]) {
 void ver_passageiro(char passageiros[MAX_PASSAGEIROS][TAM_STRING], int avioes[MAX_AVIOES][MAX_ASSENTOS], char destinos[MAX_AVIOES][TAM_STRING]) {
 	int escolhido = 0;
 	char entrada[TAM_STRING] = {0};
-	int quantidadeViagens = 0;
-	int avioesPassageiro[MAX_VIAGENS_PASSAGEIRO];
-	int assentosPassageiro[MAX_VIAGENS_PASSAGEIRO];
+	int quantidade_viagens = 0;
+	int avioes_passageiro[MAX_AVIOES];
+	int assentos_passageiro[MAX_AVIOES];
 
 	if (listar_passageiros(passageiros) == 0) {
 		printf("Sem passageiros para ver!");
@@ -134,23 +134,23 @@ void ver_passageiro(char passageiros[MAX_PASSAGEIROS][TAM_STRING], int avioes[MA
 	for (int i = 0; MAX_AVIOES > i; i++) {
 		for (int j = 0; MAX_ASSENTOS > j; j++) {
 			if (avioes[i][j] == escolhido) {
-				avioesPassageiro[quantidadeViagens] = i;
-				assentosPassageiro[quantidadeViagens] = j;
-				quantidadeViagens++;
+				avioes_passageiro[quantidade_viagens] = i;
+				assentos_passageiro[quantidade_viagens] = j;
+				quantidade_viagens++;
 			}
 		}
 	}
 
-	if (quantidadeViagens == 0) {
+	if (quantidade_viagens == 0) {
 		printf("\nPassageiro sem viagens.");
 		return;
 	}
 
 	printf("\nDestinos do passageiro %s", passageiros[escolhido]);
 
-	for (int i = 0; quantidadeViagens > i; i++) {
+	for (int i = 0; quantidade_viagens > i; i++) {
 		printf("\n<--------------------------->");
-		printf("\nAvião: %d\nAssento: %d\nDestino: %s", avioesPassageiro[i] + 1, assentosPassageiro[i] + 1, destinos[avioesPassageiro[i]]);
+		printf("\nAvião: %d\nAssento: %d\nDestino: %s", avioes_passageiro[i] + 1, assentos_passageiro[i] + 1, destinos[avioes_passageiro[i]]);
 	}
 }
 
