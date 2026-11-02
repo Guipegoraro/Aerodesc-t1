@@ -4,7 +4,7 @@
 
 void adicionar_passageiro(char passageiros[MAX_PASSAGEIROS][TAM_STRING]);
 void editar_passageiro(char passageiros[MAX_PASSAGEIROS][TAM_STRING]);
-void listar_passageiros(char passageiros[MAX_PASSAGEIROS][TAM_STRING]);
+int listar_passageiros(char passageiros[MAX_PASSAGEIROS][TAM_STRING]);
 void remover_passageiro(char passageiros[MAX_PASSAGEIROS][TAM_STRING], int avioes[MAX_AVIOES][MAX_ASSENTOS]);
 void ver_passageiro(char passageiros[MAX_PASSAGEIROS][TAM_STRING], int avioes[MAX_AVIOES][MAX_ASSENTOS], char destinos[MAX_AVIOES][TAM_STRING]);
 
@@ -14,7 +14,7 @@ void menu_passageiro(char passageiros[MAX_PASSAGEIROS][TAM_STRING], int avioes[M
 
 	do {
 
-		printf("\n=====> MENU DO PASSAGEIRO <=====\nEscolha uma das opções, 6 para sair:\n1 - Adicionar Passageiro\n2 - Listar passageiros\n3 - ver passageiro\n4 - editar passageiro\n5 - remover passageiro\n");
+		printf("\n=====> MENU DO PASSAGEIRO <=====\n\nEscolha uma das opções, 6 para sair:\n1 - Adicionar passageiro\n2 - Listar passageiros\n3 - ver passageiro\n4 - editar passageiro\n5 - remover passageiro\n");
 		fgets(entrada, TAM_STRING, stdin);
 
 		if (sscanf(entrada, "%d", &menu) != 1) {
@@ -81,12 +81,18 @@ void adicionar_passageiro(char passageiros[MAX_PASSAGEIROS][TAM_STRING]) {
 	}
 }
 
-void listar_passageiros(char passageiros[MAX_PASSAGEIROS][TAM_STRING]) {
+int listar_passageiros(char passageiros[MAX_PASSAGEIROS][TAM_STRING]) {
+	int total = 0;
 	for (int i = 0; MAX_PASSAGEIROS > i; i++) {
 		if (passageiros[i][0] != '\0') {
 			printf("ID: %d, Nome: %s\n", i + 1, passageiros[i]);
+			total++;
 		}
 	}
+
+	printf("Total de %d passageiro(s).\n", total);
+
+	return total;
 }
 
 void ver_passageiro(char passageiros[MAX_PASSAGEIROS][TAM_STRING], int avioes[MAX_AVIOES][MAX_ASSENTOS], char destinos[MAX_AVIOES][TAM_STRING]) {
@@ -96,7 +102,10 @@ void ver_passageiro(char passageiros[MAX_PASSAGEIROS][TAM_STRING], int avioes[MA
 	int avioesPassageiro[MAX_VIAGENS_PASSAGEIRO];
 	int assentosPassageiro[MAX_VIAGENS_PASSAGEIRO];
 
-	listar_passageiros(passageiros);
+	if (listar_passageiros(passageiros) == 0) {
+		printf("Sem passageiros para ver!");
+		return;
+	}
 
 	printf("\nEscolha um passageiro para ver suas viagens, 0 para sair: ");
 	fgets(entrada, TAM_STRING, stdin);
@@ -150,7 +159,10 @@ void editar_passageiro(char passageiros[MAX_PASSAGEIROS][TAM_STRING]) {
 	char nome[TAM_STRING] = {0};
 	int escolhido = 0;
 
-	listar_passageiros(passageiros);
+	if (listar_passageiros(passageiros) == 0) {
+		printf("Sem passageiros para editar!");
+		return;
+	}
 
 	printf("\nEscolha um passageiro para editar, 0 para sair: ");
 	fgets(entrada, TAM_STRING, stdin);
@@ -191,7 +203,10 @@ void remover_passageiro(char passageiros[MAX_PASSAGEIROS][TAM_STRING], int avioe
 	int escolhido = 0;
 	char entrada[TAM_STRING] = {0};
 
-	listar_passageiros(passageiros);
+	if (listar_passageiros(passageiros) == 0) {
+		printf("Sem passageiros para remover!");
+		return;
+	}
 
 	printf("\nDigite o ID do passageiro a ser excluido, 0 para sair: ");
 	fgets(entrada, TAM_STRING, stdin);
