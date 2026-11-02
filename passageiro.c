@@ -3,6 +3,7 @@
 #include <string.h>
 
 void adicionar_passageiro(char passageiros[MAX_PASSAGEIROS][TAM_STRING]);
+void editar_passageiro(char passageiros[MAX_PASSAGEIROS][TAM_STRING]);
 void listar_passageiros(char passageiros[MAX_PASSAGEIROS][TAM_STRING]);
 void remover_passageiro(char passageiros[MAX_PASSAGEIROS][TAM_STRING], int avioes[MAX_AVIOES][MAX_ASSENTOS]);
 void ver_passageiro(char passageiros[MAX_PASSAGEIROS][TAM_STRING], int avioes[MAX_AVIOES][MAX_ASSENTOS], char destinos[MAX_AVIOES][TAM_STRING]);
@@ -13,7 +14,7 @@ void menu_passageiro(char passageiros[MAX_PASSAGEIROS][TAM_STRING], int avioes[M
 
 	do {
 
-		printf("\n=====> MENU DO PASSAGEIRO <=====\nEscolha uma das opções, 5 para sair:\n1 - Adicionar Passageiro\n2 - Listar passageiros\n3 - ver passageiro\n4 - Remover passageiro\n");
+		printf("\n=====> MENU DO PASSAGEIRO <=====\nEscolha uma das opções, 6 para sair:\n1 - Adicionar Passageiro\n2 - Listar passageiros\n3 - ver passageiro\n4 - editar passageiro\n5 - remover passageiro\n");
 		fgets(entrada, TAM_STRING, stdin);
 
 		if (sscanf(entrada, "%d", &menu) != 1) {
@@ -35,10 +36,14 @@ void menu_passageiro(char passageiros[MAX_PASSAGEIROS][TAM_STRING], int avioes[M
 			break;
 
 		case 4:
-			remover_passageiro(passageiros, avioes);
+			editar_passageiro(passageiros);
 			break;
 
 		case 5:
+			remover_passageiro(passageiros, avioes);
+			break;
+
+		case 6:
 			printf("Voltando ao menu principal...\n");
 			return;
 
@@ -46,7 +51,7 @@ void menu_passageiro(char passageiros[MAX_PASSAGEIROS][TAM_STRING], int avioes[M
 			printf("Opcao invalida!\n");
 			break;
 		}
-	} while (menu != 5);
+	} while (menu != 6);
 }
 
 void adicionar_passageiro(char passageiros[MAX_PASSAGEIROS][TAM_STRING]) {
@@ -56,7 +61,7 @@ void adicionar_passageiro(char passageiros[MAX_PASSAGEIROS][TAM_STRING]) {
 	printf("\nDigite o nome do passageiro: ");
 	fgets(nome, TAM_STRING, stdin);
 	nome[strcspn(nome, "\n")] = '\0';
-	if(nome[0] == '\0'){
+	if (nome[0] == '\0') {
 		printf("\nNome invalido, voltando ao menu de passageiros...");
 		return;
 	}
@@ -138,6 +143,48 @@ void ver_passageiro(char passageiros[MAX_PASSAGEIROS][TAM_STRING], int avioes[MA
 		printf("\n<--------------------------->");
 		printf("\nAvião: %d\nAssento: %d\nDestino: %s", avioesPassageiro[i] + 1, assentosPassageiro[i] + 1, destinos[avioesPassageiro[i]]);
 	}
+}
+
+void editar_passageiro(char passageiros[MAX_PASSAGEIROS][TAM_STRING]) {
+	char entrada[TAM_STRING] = {0};
+	char nome[TAM_STRING] = {0};
+	int escolhido = 0;
+
+	listar_passageiros(passageiros);
+
+	printf("\nEscolha um passageiro para editar, 0 para sair: ");
+	fgets(entrada, TAM_STRING, stdin);
+	if (sscanf(entrada, "%d", &escolhido) != 1) {
+		printf("Entrada invalida, retornando ao menu...");
+		return;
+	}
+
+	if (escolhido <= 0) {
+		printf("\nVoltando ao menu, cancelada edição de passageiro...");
+		return;
+	}
+	if (escolhido > MAX_PASSAGEIROS) {
+		printf("\nNão existem passageiros após o ID %d, voltando ao menu...", MAX_PASSAGEIROS);
+		return;
+	}
+
+	escolhido--;
+
+	if (passageiros[escolhido][0] == '\0') {
+		printf("\nPassageiro não encontrado, voltando ao menu...");
+		return;
+	}
+
+	printf("\nDigite o novo nome do passageiro: ");
+	fgets(nome, TAM_STRING, stdin);
+	nome[strcspn(nome, "\n")] = '\0';
+	if (nome[0] == '\0') {
+		printf("\nNome invalido, nada foi alterado, voltando ao menu de passageiros...");
+		return;
+	}
+
+	strcpy(passageiros[escolhido], nome);
+	printf("\nNome alterado com sucesso.");
 }
 
 void remover_passageiro(char passageiros[MAX_PASSAGEIROS][TAM_STRING], int avioes[MAX_AVIOES][MAX_ASSENTOS]) {
