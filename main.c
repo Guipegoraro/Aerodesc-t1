@@ -35,6 +35,11 @@ int main() {
 			menu_reserva(avioes, passageiros, destinos);
 			break;
 
+					case 4:
+			printf("Finalizando programa, obrigado por usar a Aerodesc!");
+			return 0;
+			break;
+
 		default:
 			printf("Opcao invalida!\n");
 			break;
@@ -55,15 +60,16 @@ int entrada_int(int tamanho_maximo) {
 	int saida = -1;
 	fgets(entrada, TAM_STRING, stdin);
 	if (sscanf(entrada, "%d", &saida) != 1) {
-		printf("Entrada invalida, retornando ao menu...");
+		printf("\nEntrada invalida, retornando ao menu...");
 		return -1;
 	}
 	if (saida > tamanho_maximo) {
-		printf("Tamanho máximo para seleção: %d", tamanho_maximo);
+		printf("\nTamanho máximo para seleção: %d", tamanho_maximo);
 		return -1;
 	}
 	if (saida <= 0) {
-		printf("Selecao cancelada, voltando para o menu...");
+		printf("\nSelecao cancelada, voltando para o menu...");
+		return -1;
 	}
 
 	return saida;
