@@ -7,6 +7,7 @@ void editar_aviao(char destinos[MAX_AVIOES][TAM_STRING]);
 int listar_avioes(char destinos[MAX_AVIOES][TAM_STRING]);
 void remover_aviao(int avioes[MAX_AVIOES][MAX_ASSENTOS], char destinos[MAX_AVIOES][TAM_STRING]);
 void ver_aviao(int avioes[MAX_AVIOES][MAX_ASSENTOS], char passageiros[MAX_PASSAGEIROS][TAM_STRING], char destinos[MAX_AVIOES][TAM_STRING]);
+void imprimir_reservas_aviao(char passageiros[MAX_PASSAGEIROS][TAM_STRING], int avioes[MAX_AVIOES][MAX_ASSENTOS], char destinos[MAX_AVIOES][TAM_STRING], int escolhido);
 
 void menu_aviao(int avioes[MAX_AVIOES][MAX_ASSENTOS], char passageiros[MAX_PASSAGEIROS][TAM_STRING], char destinos[MAX_AVIOES][TAM_STRING]) {
 	int menu = 0;
@@ -129,6 +130,12 @@ void ver_aviao(int avioes[MAX_AVIOES][MAX_ASSENTOS], char passageiros[MAX_PASSAG
 		return;
 	}
 
+	imprimir_reservas_aviao(passageiros, avioes, destinos, escolhido);
+}
+
+void imprimir_reservas_aviao(char passageiros[MAX_PASSAGEIROS][TAM_STRING], int avioes[MAX_AVIOES][MAX_ASSENTOS], char destinos[MAX_AVIOES][TAM_STRING], int escolhido) {
+	int quantidade_passageiros = 0;
+
 	printf("\nPassageiros do avião %d com destino para %s:", escolhido + 1, destinos[escolhido]);
 
 	for (int i = 0; MAX_ASSENTOS > i; i++) {
@@ -225,7 +232,7 @@ void remover_aviao(int avioes[MAX_AVIOES][MAX_ASSENTOS], char destinos[MAX_AVIOE
 	}
 
 	for (int i = 0; MAX_ASSENTOS > i; i++) {
-		if(avioes[escolhido][i] >= 0){
+		if (avioes[escolhido][i] >= 0) {
 			quantidade_assentos_cancelados++;
 			avioes[escolhido][i] = -1;
 		}
