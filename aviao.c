@@ -140,8 +140,8 @@ void imprimir_reservas_aviao(char passageiros[MAX_PASSAGEIROS][TAM_STRING], int 
 
 	for (int i = 0; MAX_ASSENTOS > i; i++) {
 		if (avioes[escolhido][i] >= 0) {
-			printf("\n<--------------------------->");
-			printf("\nID: %d\nAssento: %d\nNome: %s", avioes[escolhido][i] + 1, i + 1, passageiros[avioes[escolhido][i]]);
+			printf("\n<--------------------------->\n");
+			printf("ID: %d\nAssento: %d\nNome: %s\n", avioes[escolhido][i] + 1, i + 1, passageiros[avioes[escolhido][i]]);
 			quantidade_passageiros++;
 		}
 	}
