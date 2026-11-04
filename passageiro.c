@@ -82,7 +82,7 @@ void adicionar_passageiro(char passageiros[MAX_PASSAGEIROS][TAM_STRING]) {
 	if (indice_cadastrado != -1) {
 		printf("\nPassageiro cadastrado:\nId: %d, Nome: %s", indice_cadastrado + 1, passageiros[indice_cadastrado]);
 	} else {
-		printf("\nSem mais espaços para passageiros, remova um antes de cadastrar outro.");
+		printf("\nSem mais espacos para passageiros, remova um antes de cadastrar outro.");
 	}
 }
 
@@ -125,14 +125,14 @@ void ver_passageiro(char passageiros[MAX_PASSAGEIROS][TAM_STRING], int avioes[MA
 	}
 
 	if (escolhido > MAX_PASSAGEIROS) {
-		printf("\nNão existem passageiros após o ID %d, voltando ao menu...", MAX_PASSAGEIROS);
+		printf("\nNao existem passageiros apos o ID %d, voltando ao menu...", MAX_PASSAGEIROS);
 		return;
 	}
 
 	escolhido--;
 
 	if (passageiros[escolhido][0] == '\0') {
-		printf("\nPassageiro com ID: %d não existe, voltando ao menu...", escolhido + 1);
+		printf("\nPassageiro com ID: %d nao existe, voltando ao menu...", escolhido + 1);
 		return;
 	}
 
@@ -177,18 +177,18 @@ void editar_passageiro(char passageiros[MAX_PASSAGEIROS][TAM_STRING]) {
 	}
 
 	if (escolhido <= 0) {
-		printf("\nVoltando ao menu, cancelada edição de passageiro...");
+		printf("\nVoltando ao menu, cancelada edicao de passageiro...");
 		return;
 	}
 	if (escolhido > MAX_PASSAGEIROS) {
-		printf("\nNão existem passageiros após o ID %d, voltando ao menu...", MAX_PASSAGEIROS);
+		printf("\nNao existem passageiros apos o ID %d, voltando ao menu...", MAX_PASSAGEIROS);
 		return;
 	}
 
 	escolhido--;
 
 	if (passageiros[escolhido][0] == '\0') {
-		printf("\nPassageiro não encontrado, voltando ao menu...");
+		printf("\nPassageiro nao encontrado, voltando ao menu...");
 		return;
 	}
 
@@ -222,18 +222,18 @@ void remover_passageiro(char passageiros[MAX_PASSAGEIROS][TAM_STRING], int avioe
 	}
 
 	if (escolhido <= 0) {
-		printf("\nVoltando ao menu, cancelada exclusão de passageiro...");
+		printf("\nVoltando ao menu, cancelada exclusao de passageiro...");
 		return;
 	}
 	if (escolhido > MAX_PASSAGEIROS) {
-		printf("\nNão existem passageiros após o ID %d, voltando ao menu...", MAX_PASSAGEIROS);
+		printf("\nNao existem passageiros apos o ID %d, voltando ao menu...", MAX_PASSAGEIROS);
 		return;
 	}
 
 	escolhido--;
 
 	if (passageiros[escolhido][0] == '\0') {
-		printf("\nPassageiro não encontrado, voltando ao menu...");
+		printf("\nPassageiro nao encontrado, voltando ao menu...");
 		return;
 	}
 
@@ -247,7 +247,7 @@ void remover_passageiro(char passageiros[MAX_PASSAGEIROS][TAM_STRING], int avioe
 
 	passageiros[escolhido][0] = '\0';
 
-	printf("\nPassageiro excluído com sucesso.");
+	printf("\nPassageiro excluido com sucesso.");
 }
 
 void buscar_passageiro(char passageiros[MAX_PASSAGEIROS][TAM_STRING], int avioes[MAX_AVIOES][MAX_ASSENTOS], char destinos[MAX_AVIOES][TAM_STRING]) {

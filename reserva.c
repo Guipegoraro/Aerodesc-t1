@@ -109,7 +109,7 @@ void remover_reserva(char passageiros[MAX_PASSAGEIROS][TAM_STRING], int avioes[M
 		printf("\nSem avioes cadastrados. Voltando ao menu...");
 		return;
 	}
-	printf("\nEscolha um aviao para reservar uma viagem, 0 para sair: ");
+	printf("\nEscolha um aviao para remover uma reserva, 0 para sair: ");
 	entrada = entrada_int(MAX_AVIOES);
 	if (entrada <= 0) {
 		return;

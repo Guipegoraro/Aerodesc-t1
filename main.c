@@ -64,7 +64,7 @@ int entrada_int(int tamanho_maximo) {
 		return -1;
 	}
 	if (saida > tamanho_maximo) {
-		printf("\nTamanho máximo para seleção: %d", tamanho_maximo);
+		printf("\nTamanho maximo para selecao: %d", tamanho_maximo);
 		return -1;
 	}
 	if (saida <= 0) {

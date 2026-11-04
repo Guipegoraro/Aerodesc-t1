@@ -119,14 +119,14 @@ void ver_aviao(int avioes[MAX_AVIOES][MAX_ASSENTOS], char passageiros[MAX_PASSAG
 	}
 
 	if (escolhido > MAX_AVIOES) {
-		printf("\nNao existem avioes apóos o ID %d, voltando ao menu...", MAX_AVIOES);
+		printf("\nNao existem avioes apos o ID %d, voltando ao menu...", MAX_AVIOES);
 		return;
 	}
 
 	escolhido--;
 
 	if (destinos[escolhido][0] == '\0') {
-		printf("\nAviao com ID: %d não existe, voltando ao menu...", escolhido + 1);
+		printf("\nAviao com ID: %d nao existe, voltando ao menu...", escolhido + 1);
 		return;
 	}
 
@@ -147,7 +147,7 @@ void imprimir_reservas_aviao(char passageiros[MAX_PASSAGEIROS][TAM_STRING], int 
 	}
 
 	if (quantidade_passageiros == 0) {
-		printf("\nAviao sem passageiros.");
+		printf("\nAviao sem passageiros.\n");
 		return;
 	}
 }
@@ -158,7 +158,7 @@ void editar_aviao(char destinos[MAX_AVIOES][TAM_STRING]) {
 	int escolhido = 0;
 
 	if (listar_avioes(destinos) == 0) {
-		printf("Sem avioes para editar!");
+		printf("Sem avioes para editar!\n");
 		return;
 	}
 
@@ -170,11 +170,11 @@ void editar_aviao(char destinos[MAX_AVIOES][TAM_STRING]) {
 	}
 
 	if (escolhido <= 0) {
-		printf("\nVoltando ao menu, cancelada edição de aviao...");
+		printf("\nVoltando ao menu, cancelada edicao de aviao...");
 		return;
 	}
 	if (escolhido > MAX_AVIOES) {
-		printf("\nNao existem avioes após o ID %d, voltando ao menu...", MAX_AVIOES);
+		printf("\nNao existem avioes apos o ID %d, voltando ao menu...", MAX_AVIOES);
 		return;
 	}
 
@@ -216,7 +216,7 @@ void remover_aviao(int avioes[MAX_AVIOES][MAX_ASSENTOS], char destinos[MAX_AVIOE
 	}
 
 	if (escolhido <= 0) {
-		printf("\nVoltando ao menu, cancelada exclusão de aviao...");
+		printf("\nVoltando ao menu, cancelada exclusao de aviao...");
 		return;
 	}
 	if (escolhido > MAX_AVIOES) {
