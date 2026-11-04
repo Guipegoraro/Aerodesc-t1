@@ -7,6 +7,8 @@ void editar_passageiro(char passageiros[MAX_PASSAGEIROS][TAM_STRING]);
 int listar_passageiros(char passageiros[MAX_PASSAGEIROS][TAM_STRING]);
 void remover_passageiro(char passageiros[MAX_PASSAGEIROS][TAM_STRING], int avioes[MAX_AVIOES][MAX_ASSENTOS]);
 void ver_passageiro(char passageiros[MAX_PASSAGEIROS][TAM_STRING], int avioes[MAX_AVIOES][MAX_ASSENTOS], char destinos[MAX_AVIOES][TAM_STRING]);
+void buscar_passageiro(char passageiros[MAX_PASSAGEIROS][TAM_STRING], int avioes[MAX_AVIOES][MAX_ASSENTOS], char destinos[MAX_AVIOES][TAM_STRING]);
+void imprimir_passageiro(char passageiros[MAX_PASSAGEIROS][TAM_STRING], int avioes[MAX_AVIOES][MAX_ASSENTOS], char destinos[MAX_AVIOES][TAM_STRING], int escolhido);
 
 void menu_passageiro(int avioes[MAX_AVIOES][MAX_ASSENTOS], char passageiros[MAX_PASSAGEIROS][TAM_STRING], char destinos[MAX_AVIOES][TAM_STRING]) {
 	int menu = 0;
@@ -14,7 +16,7 @@ void menu_passageiro(int avioes[MAX_AVIOES][MAX_ASSENTOS], char passageiros[MAX_
 
 	do {
 
-		printf("\n=====> MENU DO PASSAGEIRO <=====\n\nEscolha uma das opções, 6 para sair:\n1 - Adicionar passageiro\n2 - Listar passageiros\n3 - ver passageiro\n4 - editar passageiro\n5 - remover passageiro\n");
+		printf("\n=====> MENU DO PASSAGEIRO <=====\n\nEscolha uma das opcoes, 7 para sair:\n1 - Adicionar passageiro\n2 - Listar passageiros\n3 - ver passageiro\n4 - editar passageiro\n5 - remover passageiro\n6 - buscar passageiro\n");
 		fgets(entrada, TAM_STRING, stdin);
 
 		if (sscanf(entrada, "%d", &menu) != 1) {
@@ -44,6 +46,9 @@ void menu_passageiro(int avioes[MAX_AVIOES][MAX_ASSENTOS], char passageiros[MAX_
 			break;
 
 		case 6:
+			buscar_passageiro(passageiros, avioes, destinos);
+			break;
+		case 7:
 			printf("Voltando ao menu principal...\n");
 			return;
 
@@ -51,7 +56,7 @@ void menu_passageiro(int avioes[MAX_AVIOES][MAX_ASSENTOS], char passageiros[MAX_
 			printf("Opcao invalida!\n");
 			break;
 		}
-	} while (menu != 6);
+	} while (menu != 7);
 }
 
 void adicionar_passageiro(char passageiros[MAX_PASSAGEIROS][TAM_STRING]) {
@@ -146,11 +151,11 @@ void ver_passageiro(char passageiros[MAX_PASSAGEIROS][TAM_STRING], int avioes[MA
 		return;
 	}
 
-	printf("\nDestinos do passageiro %s", passageiros[escolhido]);
+	printf("\nDestinos do passageiro %s com ID %d", passageiros[escolhido], escolhido + 1);
 
 	for (int i = 0; quantidade_viagens > i; i++) {
 		printf("\n<--------------------------->");
-		printf("\nAvião: %d\nAssento: %d\nDestino: %s", avioes_passageiro[i] + 1, assentos_passageiro[i] + 1, destinos[avioes_passageiro[i]]);
+		printf("\nAviao: %d\nAssento: %d\nDestino: %s", avioes_passageiro[i] + 1, assentos_passageiro[i] + 1, destinos[avioes_passageiro[i]]);
 	}
 }
 
@@ -243,4 +248,54 @@ void remover_passageiro(char passageiros[MAX_PASSAGEIROS][TAM_STRING], int avioe
 	passageiros[escolhido][0] = '\0';
 
 	printf("\nPassageiro excluído com sucesso.");
+}
+
+void buscar_passageiro(char passageiros[MAX_PASSAGEIROS][TAM_STRING], int avioes[MAX_AVIOES][MAX_ASSENTOS], char destinos[MAX_AVIOES][TAM_STRING]) {
+	char entrada[TAM_STRING] = {0};
+	int pontuacao[MAX_PASSAGEIROS] = {0};
+	int escolhido;
+	printf("\nDigite o nome do passageiro a ser visualizado, case-sensitive: ");
+	fgets(entrada, TAM_STRING, stdin);
+
+	for (int i = 0; MAX_PASSAGEIROS > i; i++) {
+		if (strcmp(passageiros[i], entrada)) {
+			escolhido = i;
+			break;
+		}
+	}
+
+	if (passageiros[escolhido][0] == '\0') {
+		printf("\nPassageiro com ID: %d não existe, voltando ao menu...", escolhido + 1);
+		return;
+	}
+
+	imprimir_passageiro(passageiros, avioes, destinos, escolhido);
+}
+
+void imprimir_passageiro(char passageiros[MAX_PASSAGEIROS][TAM_STRING], int avioes[MAX_AVIOES][MAX_ASSENTOS], char destinos[MAX_AVIOES][TAM_STRING], int escolhido) {
+	int quantidade_viagens = 0;
+	int avioes_passageiro[MAX_AVIOES];
+	int assentos_passageiro[MAX_AVIOES];
+
+	for (int i = 0; MAX_AVIOES > i; i++) {
+		for (int j = 0; MAX_ASSENTOS > j; j++) {
+			if (avioes[i][j] == escolhido) {
+				avioes_passageiro[quantidade_viagens] = i;
+				assentos_passageiro[quantidade_viagens] = j;
+				quantidade_viagens++;
+			}
+		}
+	}
+
+	if (quantidade_viagens == 0) {
+		printf("\nPassageiro %s com ID %d sem viagens, voltando ao menu...", passageiros[escolhido], escolhido + 1);
+		return;
+	}
+
+	printf("\nDestinos do passageiro %s com ID %d", passageiros[escolhido], escolhido + 1);
+
+	for (int i = 0; quantidade_viagens > i; i++) {
+		printf("\n<--------------------------->");
+		printf("\nAviao: %d\nAssento: %d\nDestino: %s", avioes_passageiro[i] + 1, assentos_passageiro[i] + 1, destinos[avioes_passageiro[i]]);
+	}
 }

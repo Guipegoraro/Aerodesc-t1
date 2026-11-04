@@ -14,7 +14,7 @@ int main() {
 	char entrada[TAM_STRING] = {0};
 
 	do {
-		printf("\n=====> MENU PRINCIPAL AERODESC <=====\nEscolha uma das opções, 4 para sair:\n1 - Menu avioes\n2 - Menu passageiros\n3 - Menu reservas\n");
+		printf("\n=====> MENU PRINCIPAL AERODESC <=====\nEscolha uma das opcoes, 4 para sair:\n1 - Menu avioes\n2 - Menu passageiros\n3 - Menu reservas\n");
 		fgets(entrada, TAM_STRING, stdin);
 
 		if (sscanf(entrada, "%d", &menu) != 1) {

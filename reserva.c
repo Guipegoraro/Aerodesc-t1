@@ -11,7 +11,7 @@ void menu_reserva(int avioes[MAX_AVIOES][MAX_ASSENTOS], char passageiros[MAX_PAS
 
 	do {
 
-		printf("\n=====> MENU RESERVAS <=====\nEscolha uma das opções, 3 para sair:\n1 - Adicionar reserva\n2 - Remover reservas\n");
+		printf("\n=====> MENU RESERVAS <=====\nEscolha uma das opcoes, 3 para sair:\n1 - Adicionar reserva\n2 - Remover reservas\n");
 		fgets(entrada, TAM_STRING, stdin);
 
 		if (sscanf(entrada, "%d", &menu) != 1) {
@@ -46,7 +46,7 @@ void adicionar_reserva(char passageiros[MAX_PASSAGEIROS][TAM_STRING], int avioes
 	int assento_escolhido = -1;
 
 	if (listar_avioes(destinos) == 0) {
-		printf("\nSem avioes cadastrados, primeiro cadastre um avião. Voltando ao menu...");
+		printf("\nSem avioes cadastrados, primeiro cadastre um aviao. Voltando ao menu...");
 		return;
 	}
 	printf("\nEscolha um aviao para reservar uma viagem, 0 para sair: ");
