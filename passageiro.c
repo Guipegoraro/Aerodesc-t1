@@ -253,19 +253,24 @@ void remover_passageiro(char passageiros[MAX_PASSAGEIROS][TAM_STRING], int avioe
 void buscar_passageiro(char passageiros[MAX_PASSAGEIROS][TAM_STRING], int avioes[MAX_AVIOES][MAX_ASSENTOS], char destinos[MAX_AVIOES][TAM_STRING]) {
 	char entrada[TAM_STRING] = {0};
 	int pontuacao[MAX_PASSAGEIROS] = {0};
-	int escolhido;
+	int escolhido = -1;
 	printf("\nDigite o nome do passageiro a ser visualizado, case-sensitive: ");
 	fgets(entrada, TAM_STRING, stdin);
+	entrada[strcspn(entrada, "\n")] = '\0';
+	if (entrada[0] == '\0') {
+		printf("\nNome invalido, voltando ao menu de passageiros...");
+		return;
+	}
 
 	for (int i = 0; MAX_PASSAGEIROS > i; i++) {
-		if (strcmp(passageiros[i], entrada)) {
+		if (strcmp(passageiros[i], entrada) == 0) {
 			escolhido = i;
 			break;
 		}
 	}
 
-	if (passageiros[escolhido][0] == '\0') {
-		printf("\nPassageiro com ID: %d não existe, voltando ao menu...", escolhido + 1);
+	if (escolhido == -1) {
+		printf("\nPassageiro %s nao encontrado, voltando ao menu...", entrada);
 		return;
 	}
 
