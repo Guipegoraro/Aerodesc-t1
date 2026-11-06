@@ -120,7 +120,10 @@ void remover_reserva(char passageiros[MAX_PASSAGEIROS][TAM_STRING], int avioes[M
 		return;
 	}
 
-	imprimir_reservas_aviao(passageiros, avioes, destinos, aviao_escolhido);
+	if (imprimir_reservas_aviao(passageiros, avioes, destinos, aviao_escolhido) == 0) {
+		printf("Aviao sem reservas! voltando ao menu...");
+		return;
+	}
 	printf("Escolha o ID do passageiro a ter sua reserva cancelada: ");
 	entrada = entrada_int(MAX_PASSAGEIROS);
 	if(entrada == -1){
