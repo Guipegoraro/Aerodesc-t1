@@ -281,6 +281,8 @@ int buscar_indice_passageiro(char passageiros[MAX_PASSAGEIROS][TAM_STRING], char
 			return i;
 		}
 	}
+
+	return -1;
 }
 
 void imprimir_passageiro(char passageiros[MAX_PASSAGEIROS][TAM_STRING], int avioes[MAX_AVIOES][MAX_ASSENTOS], char destinos[MAX_AVIOES][TAM_STRING], int escolhido) {
