@@ -7,8 +7,9 @@ void editar_aviao(char destinos[MAX_AVIOES][TAM_STRING]);
 int listar_avioes(char destinos[MAX_AVIOES][TAM_STRING]);
 void remover_aviao(int avioes[MAX_AVIOES][MAX_ASSENTOS], char destinos[MAX_AVIOES][TAM_STRING]);
 void ver_aviao(int avioes[MAX_AVIOES][MAX_ASSENTOS], char passageiros[MAX_PASSAGEIROS][TAM_STRING], char destinos[MAX_AVIOES][TAM_STRING]);
-void imprimir_reservas_aviao(char passageiros[MAX_PASSAGEIROS][TAM_STRING], int avioes[MAX_AVIOES][MAX_ASSENTOS], char destinos[MAX_AVIOES][TAM_STRING], int escolhido);
+int imprimir_reservas_aviao(char passageiros[MAX_PASSAGEIROS][TAM_STRING], int avioes[MAX_AVIOES][MAX_ASSENTOS], char destinos[MAX_AVIOES][TAM_STRING], int escolhido);
 void ranking_destinos(int avioes[MAX_AVIOES][MAX_ASSENTOS], char destinos[MAX_AVIOES][TAM_STRING]);
+int contar_ocupados(int avioes[MAX_AVIOES][MAX_ASSENTOS], int aviao, int assento);
 
 void menu_aviao(int avioes[MAX_AVIOES][MAX_ASSENTOS], char passageiros[MAX_PASSAGEIROS][TAM_STRING], char destinos[MAX_AVIOES][TAM_STRING]) {
 	int menu = 0;
@@ -137,7 +138,7 @@ void ver_aviao(int avioes[MAX_AVIOES][MAX_ASSENTOS], char passageiros[MAX_PASSAG
 	imprimir_reservas_aviao(passageiros, avioes, destinos, escolhido);
 }
 
-void imprimir_reservas_aviao(char passageiros[MAX_PASSAGEIROS][TAM_STRING], int avioes[MAX_AVIOES][MAX_ASSENTOS], char destinos[MAX_AVIOES][TAM_STRING], int escolhido) {
+int imprimir_reservas_aviao(char passageiros[MAX_PASSAGEIROS][TAM_STRING], int avioes[MAX_AVIOES][MAX_ASSENTOS], char destinos[MAX_AVIOES][TAM_STRING], int escolhido) {
 	int quantidade_passageiros = 0;
 
 	printf("\nPassageiros do aviao %d com destino para %s:", escolhido + 1, destinos[escolhido]);
@@ -152,8 +153,9 @@ void imprimir_reservas_aviao(char passageiros[MAX_PASSAGEIROS][TAM_STRING], int 
 
 	if (quantidade_passageiros == 0) {
 		printf("\nAviao sem passageiros.\n");
-		return;
 	}
+
+	return quantidade_passageiros;
 }
 
 void editar_aviao(char destinos[MAX_AVIOES][TAM_STRING]) {
@@ -247,6 +249,18 @@ void remover_aviao(int avioes[MAX_AVIOES][MAX_ASSENTOS], char destinos[MAX_AVIOE
 	printf("\nAviao excluido com sucesso, %d reserva(s) cancelada(s).", quantidade_assentos_cancelados);
 }
 
+int contar_ocupados(int avioes[MAX_AVIOES][MAX_ASSENTOS], int aviao, int assento) {
+	if (assento == MAX_ASSENTOS) {
+		return 0;
+	}
+
+	if (avioes[aviao][assento] != -1) {
+		return 1 + contar_ocupados(avioes, aviao, assento + 1);
+	}
+
+	return contar_ocupados(avioes, aviao, assento + 1);
+}
+
 void ranking_destinos(int avioes[MAX_AVIOES][MAX_ASSENTOS], char destinos[MAX_AVIOES][TAM_STRING]) {
 	int ocupacao[MAX_AVIOES] = {0};
 	int ids[MAX_AVIOES] = {0};
@@ -258,12 +272,7 @@ void ranking_destinos(int avioes[MAX_AVIOES][MAX_ASSENTOS], char destinos[MAX_AV
 			continue;
 		}
 
-		int quantidade_voo = 0;
-		for (int j = 0; MAX_ASSENTOS > j; j++) {
-			if (avioes[i][j] != -1) {
-				quantidade_voo++;
-			}
-		}
+		int quantidade_voo = contar_ocupados(avioes, i, 0);
 
 		strcpy(nomes[voos_ocupados], destinos[i]);
 		ocupacao[voos_ocupados] = quantidade_voo;
