@@ -2,13 +2,16 @@
 #include <stdio.h>
 #include <string.h>
 
-void adicionar_passageiro(char passageiros[MAX_PASSAGEIROS][TAM_STRING]);
-void editar_passageiro(char passageiros[MAX_PASSAGEIROS][TAM_STRING]);
 int listar_passageiros(char passageiros[MAX_PASSAGEIROS][TAM_STRING]);
+int buscar_indice_passageiro(char passageiros[MAX_PASSAGEIROS][TAM_STRING], char entrada[TAM_STRING]);
+void editar_passageiro(char passageiros[MAX_PASSAGEIROS][TAM_STRING]);
+void adicionar_passageiro(char passageiros[MAX_PASSAGEIROS][TAM_STRING]);
 void remover_passageiro(char passageiros[MAX_PASSAGEIROS][TAM_STRING], int avioes[MAX_AVIOES][MAX_ASSENTOS]);
 void ver_passageiro(char passageiros[MAX_PASSAGEIROS][TAM_STRING], int avioes[MAX_AVIOES][MAX_ASSENTOS], char destinos[MAX_AVIOES][TAM_STRING]);
 void buscar_passageiro(char passageiros[MAX_PASSAGEIROS][TAM_STRING], int avioes[MAX_AVIOES][MAX_ASSENTOS], char destinos[MAX_AVIOES][TAM_STRING]);
 void imprimir_passageiro(char passageiros[MAX_PASSAGEIROS][TAM_STRING], int avioes[MAX_AVIOES][MAX_ASSENTOS], char destinos[MAX_AVIOES][TAM_STRING], int escolhido);
+
+
 
 void menu_passageiro(int avioes[MAX_AVIOES][MAX_ASSENTOS], char passageiros[MAX_PASSAGEIROS][TAM_STRING], char destinos[MAX_AVIOES][TAM_STRING]) {
 	int menu = 0;
@@ -262,12 +265,7 @@ void buscar_passageiro(char passageiros[MAX_PASSAGEIROS][TAM_STRING], int avioes
 		return;
 	}
 
-	for (int i = 0; MAX_PASSAGEIROS > i; i++) {
-		if (strcmp(passageiros[i], entrada) == 0) {
-			escolhido = i;
-			break;
-		}
-	}
+	escolhido = buscar_indice_passageiro(passageiros, entrada);
 
 	if (escolhido == -1) {
 		printf("\nPassageiro %s nao encontrado, voltando ao menu...", entrada);
@@ -275,6 +273,14 @@ void buscar_passageiro(char passageiros[MAX_PASSAGEIROS][TAM_STRING], int avioes
 	}
 
 	imprimir_passageiro(passageiros, avioes, destinos, escolhido);
+}
+
+int buscar_indice_passageiro(char passageiros[MAX_PASSAGEIROS][TAM_STRING], char entrada[TAM_STRING]) {
+	for (int i = 0; MAX_PASSAGEIROS > i; i++) {
+		if (strcmp(passageiros[i], entrada) == 0) {
+			return i;
+		}
+	}
 }
 
 void imprimir_passageiro(char passageiros[MAX_PASSAGEIROS][TAM_STRING], int avioes[MAX_AVIOES][MAX_ASSENTOS], char destinos[MAX_AVIOES][TAM_STRING], int escolhido) {
