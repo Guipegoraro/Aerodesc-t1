@@ -1,5 +1,5 @@
-#ifndef modelo_dados
-#define modelo_dados
+#ifndef dados   
+#define dados
 
 #define QUANTIDADE_FILEIRAS 4
 #define ASSENTOS_FILEIRA 15
